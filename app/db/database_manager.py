@@ -3,6 +3,8 @@ from typing import List, Optional
 from pydantic import EmailStr
 from app.db.models import OID, UserDB
 from app.rest.schema import PostSchema
+
+
 class DatabaseManager(object):
     @property
     def client(self):
@@ -23,7 +25,6 @@ class DatabaseManager(object):
     @abstractmethod
     async def get_posts(self) -> List[PostSchema]:
         pass
-
 
     @abstractmethod
     async def add_post(self, post: PostSchema):
@@ -48,5 +49,3 @@ class DatabaseManager(object):
     @abstractmethod
     async def remove_user(self, email: str):
         pass
-
-

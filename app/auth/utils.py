@@ -10,24 +10,15 @@ JWT_SECRET = get_config().jwt_secret
 JWT_ALGORITHM = get_config().hash_algorithm
 
 
-
-
 def signJWT(user_id: str) -> Dict[str, str]:
     try:
-        payload = {
-            "user_id": user_id,
-            "expires": time.time() + 1800
-        }
+        payload = {"user_id": user_id, "expires": time.time() + 1800}
         token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
-        return {
-            "token": token
-        }
+        return {"token": token}
     except Exception as e:
         print(e)
-        return {
-            "message": "Something went wrong"
-        }
+        return {"message": "Something went wrong"}
 
 
 def verify_token(token: str) -> dict:
@@ -38,6 +29,7 @@ def verify_token(token: str) -> dict:
         print(e)
         return None
 
+
 def refresh_token(token: str) -> dict:
     try:
         decoded_token = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
@@ -45,6 +37,7 @@ def refresh_token(token: str) -> dict:
     except Exception as e:
         print(e)
         return None
+
 
 def get_user_id(token: str) -> str:
     try:

@@ -9,6 +9,7 @@ from pydantic import BaseModel, EmailStr
 
 from typing import List
 
+
 class OID(str):
     @classmethod
     def __get_validators__(cls):
@@ -16,10 +17,10 @@ class OID(str):
 
     @classmethod
     def validate(cls, v):
-        if v == '':
-            raise TypeError('ObjectId is empty')
+        if v == "":
+            raise TypeError("ObjectId is empty")
         if ObjectId.is_valid(v) is False:
-            raise TypeError('ObjectId invalid')
+            raise TypeError("ObjectId invalid")
         return str(v)
 
 
@@ -30,9 +31,9 @@ class BaseDBModel(BaseModel):
 
         @classmethod
         def alias_generator(cls, string: str) -> str:
-            """ Camel case generator """
-            temp = string.split('_')
-            return temp[0] + ''.join(ele.title() for ele in temp[1:])
+            """Camel case generator"""
+            temp = string.split("_")
+            return temp[0] + "".join(ele.title() for ele in temp[1:])
 
 
 class PostDB(BaseDBModel):
@@ -46,6 +47,3 @@ class UserDB(BaseDBModel):
     id: Optional[OID]
     email: EmailStr
     password: str
-
-
-
